@@ -1,11 +1,18 @@
+const process = require('process');
 const { DocumentStore } = require('ravendb');
 
-const store = new DocumentStore([
-    'http://localhost:8081', 
-    'http://localhost:8082', 
-    'http://localhost:8083', 
-],
-'database');
+process.on('SIGINT', function() {
+  console.log("Bye bye");
+  process.exit();
+});
+
+const urlsEnvVal = process.env["RAVEN_URLS"];
+if (!urlsEnvVal) {
+  throw new Error("Missing RAVEN_URLS environment variable.");
+}
+
+const ravenUrls = urlsEnvVal.split(',')
+const store = new DocumentStore(ravenUrls, 'database');
 
 store.initialize();
 
