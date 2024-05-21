@@ -1,4 +1,4 @@
 license.json
-rvn_cluster/*
+local-setup/rvn_cluster
 ravendb.tar.bz2
 node_modules
