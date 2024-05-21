@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ravendb": "^5.2.10"
+    "ravendb": "^5.4.2"
   }
 }

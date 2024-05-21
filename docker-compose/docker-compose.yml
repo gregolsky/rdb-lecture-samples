@@ -15,7 +15,9 @@ services:
       - RAVEN_PublicServerUrl=http://raven1:8080
       - RAVEN_PublicServerUrl_Tcp=tcp://raven1:38888
       - RAVEN_License_Eula_Accepted=true
-    env_file: ./license.env
+      - RAVEN_License_Path=/ravendb/license
+    volumes:
+      - ./license.json:/ravendb/license
       
   raven2:
     image: ravendb/ravendb-nightly:6.0-ubuntu-latest
@@ -32,7 +34,9 @@ services:
       - RAVEN_PublicServerUrl=http://raven2:8080
       - RAVEN_PublicServerUrl_Tcp=tcp://raven2:38888
       - RAVEN_License_Eula_Accepted=true
-    env_file: ./license.env
+      - RAVEN_License_Path=/ravendb/license
+    volumes:
+      - ./license.json:/ravendb/license
    
   raven3:
     image: ravendb/ravendb-nightly:6.0-ubuntu-latest
@@ -49,4 +53,6 @@ services:
       - RAVEN_PublicServerUrl=http://raven3:8080
       - RAVEN_PublicServerUrl_Tcp=tcp://raven3:38888
       - RAVEN_License_Eula_Accepted=true
-    env_file: ./license.env
+      - RAVEN_License_Path=/ravendb/license
+    volumes:
+      - ./license.json:/ravendb/license
