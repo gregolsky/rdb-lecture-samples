@@ -23,6 +23,10 @@ async function main() {
     const id = (Math.random() * 1000).toString();
     session.store({ value: Math.random() }, id);
     session.saveChanges();
+
+    //const docs = await session.advanced.rawQuery('from @all_docs').all();
+    //console.log(docs.length);
+
     console.log('stored ' + id) 
   }
 }
