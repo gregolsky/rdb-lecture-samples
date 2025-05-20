@@ -11,12 +11,18 @@ if (!urlsEnvVal) {
   throw new Error("Missing RAVEN_URLS environment variable.");
 }
 
-const ravenUrls = urlsEnvVal.split(',')
-const store = new DocumentStore(ravenUrls, 'database');
+const databaseEnvVal = process.env["RAVEN_DATABASE"];
+if (!databaseEnvVal) {
+  throw new Error("Missing RAVEN_DATABASE environment variable.");
+}
 
+const ravenUrls = urlsEnvVal.split(',')
+
+const store = new DocumentStore(ravenUrls, databaseEnvVal);
 store.initialize();
 
 async function main() {
+
   while (true) {
     const session = store.openSession();
     await delay(100); 
@@ -24,10 +30,10 @@ async function main() {
     session.store({ value: Math.random() }, id);
     session.saveChanges();
 
-    //const docs = await session.advanced.rawQuery('from @all_docs').all();
-    //console.log(docs.length);
+    console.log(new Date().toISOString() + ': stored ' + id) 
 
-    console.log('stored ' + id) 
+    // const docs = await session.advanced.rawQuery('from @all_docs').all();
+    // console.log(docs.length);
   }
 }
 
@@ -39,4 +45,4 @@ async function delay(t, val) {
    });
 }
 
-main().catch(console.error);
+main();
